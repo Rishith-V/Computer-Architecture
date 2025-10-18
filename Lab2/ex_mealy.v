@@ -2,7 +2,7 @@
 module mealy(clk, rst, inp, outp);
 
     output reg outp;
-    input clk, rst;
+    input clk, rst, inp;
     reg [1:0] state;
 
     always @ (posedge clk or posedge rst)
@@ -69,6 +69,8 @@ module test_mealy;
     reg inp, clk, rst;
     wire outp;
     wire [1:0] state;
+    reg [15:0] sequence;
+    integer i;
 
     mealy DUT (clk, rst, inp, outp);
 
@@ -82,6 +84,31 @@ module test_mealy;
                 end
         end
 
+    initial
+        begin
+            sequence = 16'b0101011101110010;
+            rst = 1;
+            #2 rst = 0;
+            #1;
+            for(i = 0; i < 16; i = i+1)
+                begin
+                    inp = sequence[i];
+                    #10;
+                end
+            testing;
+            #20 $finish;
+        end
 
+    task testing;
+        for(i = 0; i <= 15; i = i+1)
+            begin
+                inp = $random % 2;
+            end
+    endtask
+
+    initial
+        begin
+            $monitor($time, " : clock = %b, reset = %b, input = %b, state = %b, output = %b", clk, rst, inp, DUT.state, outp);
+        end
 
 endmodule
