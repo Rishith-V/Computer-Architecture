@@ -1,4 +1,4 @@
-//example for for and join
+//example for fork and join
 module ex(a, b, c, d);
 
     output reg a, b, c, d;
