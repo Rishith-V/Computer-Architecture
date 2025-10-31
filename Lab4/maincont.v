@@ -8,7 +8,7 @@ module and5inp(in1, in2, in3, in4, in5, in6, outp);
 endmodule   
 
 
-module andarray (op, regdst, alusrc, memtoreg, regwrite, memread, memwrite, branch, aluop0, aluop1);
+module maincont (op, regdst, alusrc, memtoreg, regwrite, memread, memwrite, branch, aluop0, aluop1);
 
     input [5:0] op;
     output regdst, alusrc, memtoreg, memwrite, regwrite, memread, branch, aluop0, aluop1;
